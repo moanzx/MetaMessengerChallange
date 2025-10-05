@@ -1,0 +1,12 @@
+# Node dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# TypeScript build output (none yet, but good to include)
+dist/
+
+# System files
+.DS_Store
+Thumbs.db
