@@ -17,6 +17,10 @@ export const errorMiddleware = (err: Error, req: Request, res: Response, next: N
             return res.status(500).json({ error: "Database error occurred" });
         case "UNKNOWN_ERROR":
             return res.status(500).json({ error: "An unexpected error occurred" });
+        case "USER_NOT_FOUND":
+            return res.status(404).json({ error: "User's username not found" });
+        case "INVALID_PASSWORD":
+            return res.status(401).json({ error: "Invalid password" });
         default:
             // Log the actual error for debugging
             console.error("Unexpected error:", err.message);
