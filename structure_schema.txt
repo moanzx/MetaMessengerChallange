@@ -1,0 +1,38 @@
+backend-challenge/
+│
+├── src/
+│   ├── app.ts                  # Express app setup (middleware, routes)
+│   ├── server.ts               # Start the server (entry point)
+│   │
+│   ├── config/
+│   │   └── db.ts               # MongoDB connection logic
+│   │
+│   ├── models/
+│   │   ├── user.model.ts       # User schema (username, password)
+│   │   └── message.model.ts    # Message schema (sender, recipient, content, timestamp)
+│   │
+│   ├── controllers/
+│   │   ├── auth.controller.ts  # Signup & login logic
+│   │   └── chat.controller.ts  # Send message, get chat history
+│   │
+│   ├── routes/
+│   │   ├── auth.routes.ts      # /api/auth routes
+│   │   └── chat.routes.ts      # /api/chat routes
+│   │
+│   ├── middleware/
+│   │   └── auth.middleware.ts  # JWT verification
+│   │
+│   ├── services/
+│   │   ├── auth.service.ts     # Hashing, JWT generation/validation
+│   │   └── chat.service.ts     # Chat logic (DB queries)
+│   │
+│   ├── utils/
+│   │   └── validators.ts       # Input validation helpers (optional, minimal)
+│   │
+│   └── types/
+│       └── index.d.ts          # Common interfaces (User, Message)
+│
+├── .env                        # Environment variables (JWT secret, DB URI)
+├── package.json
+├── tsconfig.json
+└── README.md
