@@ -19,6 +19,10 @@ export const errorMiddleware = (err: Error, req: Request, res: Response, next: N
             return res.status(500).json({ error: "An unexpected error occurred" });
         case "USER_NOT_FOUND":
             return res.status(404).json({ error: "User's username not found" });
+        case "RECIPIENT_NOT_FOUND":
+            return res.status(404).json({ error: "Recipient username not found" });
+        case "EMPTY_CONTENT":
+            return res.status(400).json({ error: "Content is required" });
         case "INVALID_PASSWORD":
             return res.status(401).json({ error: "Invalid password" });
         case "UNAUTHORIZED":
@@ -33,6 +37,8 @@ export const errorMiddleware = (err: Error, req: Request, res: Response, next: N
             return res.status(401).json({ error: "Token is invalid or expired" });
         case "MISSING_FIELDS_CHAT":
             return res.status(400).json({ error: "Recipient ID and content are required" });
+        case "MESSAGE_TOO_LONG":
+            return res.status(400).json({ error: "Message is too long, max 500 characters" });
         default:
             // Log the actual error for debugging
             console.error("Unexpected error:", err.message);

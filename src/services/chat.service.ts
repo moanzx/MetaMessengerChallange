@@ -2,13 +2,12 @@ import { Message } from "../models/message.model";
 import { LastMessage } from "../models/lastMessage.model";
 import { User } from "../models/user.model";
 
-export const sendMessage = async (senderId: string, recipientId: string, content: string) => {
-    console.log("recipientId", recipientId);
-    const recipient = await User.findOne({ _id: recipientId }).select("_id").lean();
+export const sendMessage = async (senderId: string, recipientUsername: string, content: string) => {
+    const recipient = await User.findOne({ username: recipientUsername }).select("_id").lean();
     if (!recipient) {
         throw new Error("RECIPIENT_NOT_FOUND");
     }
-    const msg = await Message.create({ senderId, recipientId, content });
+    const msg = await Message.create({ senderId, recipientId: recipient._id, content });
     updateLastMessage(msg);
     return msg;
 }

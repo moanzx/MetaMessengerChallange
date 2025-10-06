@@ -1,38 +1,44 @@
-backend-challenge/
+MetaMessengerChallange/
 │
 ├── src/
-│   ├── app.ts                  # Express app setup (middleware, routes)
-│   ├── server.ts               # Start the server (entry point)
+│   ├── app.ts                                   # Express app setup (middleware, routes)
+│   ├── server.ts                                # Server entry point
 │   │
 │   ├── config/
-│   │   └── db.ts               # MongoDB connection logic
+│   │   └── db.ts                                # MongoDB connection logic
 │   │
 │   ├── models/
-│   │   ├── user.model.ts       # User schema (username, password)
-│   │   └── message.model.ts    # Message schema (sender, recipient, content, timestamp)
+│   │   ├── user.model.ts                        # User schema (username, password hash, etc.)
+│   │   ├── message.model.ts                     # Message schema (sender, recipient, content, timestamp)
+│   │   └── lastMessage.model.ts                 # Tracks latest message metadata per conversation
 │   │
 │   ├── controllers/
-│   │   ├── auth.controller.ts  # Signup & login logic
-│   │   └── chat.controller.ts  # Send message, get chat history
+│   │   ├── auth.controller.ts                   # Signup & login controllers
+│   │   ├── chat.controller.ts                   # Send message, get chat preview
+│   │   └── history.controller.ts                # Fetch full chat history
 │   │
 │   ├── routes/
-│   │   ├── auth.routes.ts      # /api/auth routes
-│   │   └── chat.routes.ts      # /api/chat routes
+│   │   ├── auth.routes.ts                       # /api/auth routes
+│   │   ├── chat.routes.ts                       # /api/chat routes (send, list previews)
+│   │   └── history.routes.ts                    # /api/history routes (conversation history)
 │   │
 │   ├── middleware/
-│   │   └── auth.middleware.ts  # JWT verification
+│   │   ├── auth.middleware.ts                   # JWT verification
+│   │   ├── error.middleware.ts                  # Centralized error handling
+│   │   └── validateAuthFields.middleware.ts     # Validate signup/login fields
 │   │
 │   ├── services/
-│   │   ├── auth.service.ts     # Hashing, JWT generation/validation
-│   │   └── chat.service.ts     # Chat logic (DB queries)
+│   │   ├── auth.service.ts                      # Password hashing, JWT generation/validation
+│   │   ├── chat.service.ts                      # Chat logic and lastMessage updates
+│   │   └── history.service.ts                   # Conversation history fetching
 │   │
-│   ├── utils/
-│   │   └── validators.ts       # Input validation helpers (optional, minimal)
-│   │
-│   └── types/
-│       └── index.d.ts          # Common interfaces (User, Message)
+│   └── types/                                   # (Reserved for shared types; currently empty)
 │
-├── .env                        # Environment variables (JWT secret, DB URI)
+├── .gitignore                                   # Git ignore rules
+├── .gitattributes                               # Git attributes (e.g., line endings)
 ├── package.json
+├── package-lock.json
 ├── tsconfig.json
-└── README.md
+├── structure_schema.txt                         # This file
+├── .rest                                        # REST client requests for testing APIs
+└── node_modules/                                # Installed dependencies

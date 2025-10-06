@@ -1,24 +1,17 @@
 import { NextFunction, Request, Response } from "express";
-import { Message } from "../models/message.model";
 import { sendMessage } from "../services/chat.service";
+import sanitizeHtml from "sanitize-html";
+
 
 export const createMessage = async (req: Request, res: Response, next: NextFunction) => {
     try {
-
-        // check if the body is valid
-        if (!req.body || typeof req.body !== "object") {
-            throw new Error("INVALID_BODY");
-        }
-
-        if (!("recipientIdentifier" in req.body) || !("content" in req.body)) {
-            throw new Error("MISSING_FIELDS_CHAT");
-        }
-
         const user = (req as any).user;
-        const { recipientIdentifier: recipientId, content } = req.body;
+        const { recipientIdentifier: recipientUsername, content } = req.body;
         const senderId = user.userId;
-        const msg = await sendMessage(senderId, recipientId, content);
-        return res.status(201).json({ message: "Message sent endpoint hit" });
+        const cleanContent = sanitizeHtml(content, { allowedTags: [], allowedAttributes: {} }).trim();
+        if (!cleanContent) throw new Error("EMPTY_CONTENT");
+        const msg = await sendMessage(senderId, recipientUsername, cleanContent);
+        return res.status(201).json({ message: "Message sent", msg });
     } catch (error) {
         next(error);
     }
