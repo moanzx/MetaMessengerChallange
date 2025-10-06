@@ -21,6 +21,18 @@ export const errorMiddleware = (err: Error, req: Request, res: Response, next: N
             return res.status(404).json({ error: "User's username not found" });
         case "INVALID_PASSWORD":
             return res.status(401).json({ error: "Invalid password" });
+        case "UNAUTHORIZED":
+            return res.status(401).json({ error: "Unauthorized" });
+        // Common JWT error messages mapped to Unauthorized
+        case "jwt malformed":
+        case "invalid token":
+        case "invalid signature":
+        case "JsonWebTokenError":
+        case "TokenExpiredError":
+        case "jwt expired":
+            return res.status(401).json({ error: "Token is invalid or expired" });
+        case "MISSING_FIELDS_CHAT":
+            return res.status(400).json({ error: "Recipient ID and content are required" });
         default:
             // Log the actual error for debugging
             console.error("Unexpected error:", err.message);
