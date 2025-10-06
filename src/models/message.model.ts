@@ -10,4 +10,9 @@ const messageSchema = new Schema(
     { timestamps: true }
 );
 
+messageSchema.index({ senderId: 1 });
+messageSchema.index({ recipientId: 1 });
+messageSchema.index({ timestamp: -1 });
+
+
 export const Message = model("Message", messageSchema);

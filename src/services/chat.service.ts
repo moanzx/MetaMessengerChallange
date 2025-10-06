@@ -4,7 +4,7 @@ import { User } from "../models/user.model";
 
 export const sendMessage = async (senderId: string, recipientId: string, content: string) => {
     console.log("recipientId", recipientId);
-    const recipient = await User.findOne({ _id: recipientId });
+    const recipient = await User.findOne({ _id: recipientId }).select("_id").lean();
     if (!recipient) {
         throw new Error("RECIPIENT_NOT_FOUND");
     }
@@ -15,17 +15,17 @@ export const sendMessage = async (senderId: string, recipientId: string, content
 
 async function updateLastMessage(msg: any) {
     const usersIds = [msg.senderId, msg.recipientId].sort();
-    const lastMessage = await LastMessage.findOne({ user1Id: usersIds[0], user2Id: usersIds[1] });
+    const lastMessage = await LastMessage.findOne({ user1Id: usersIds[0], user2Id: usersIds[1] }).lean();
     if (!lastMessage) {
         await LastMessage.create({ user1Id: usersIds[0], user2Id: usersIds[1], senderId: msg.senderId, content: msg.content, timestamp: msg.timestamp });
     } else {
         if (lastMessage.timestamp < msg.timestamp) {
-            await LastMessage.updateOne({ user1Id: usersIds[0], user2Id: usersIds[1] }, { content: msg.content, timestamp: msg.timestamp });
+            await LastMessage.updateOne(
+                { user1Id: usersIds[0], user2Id: usersIds[1] },
+                { $set: { content: msg.content, timestamp: msg.timestamp, senderId: msg.senderId } }
+            );
         }
     }
 }
 
-export const getChats = async (userId: string) => {
-    const chats = await LastMessage.find({ $or: [{ user1Id: userId }, { user2Id: userId }] });
-    return chats;
-}
+// moved to services/history.service.ts

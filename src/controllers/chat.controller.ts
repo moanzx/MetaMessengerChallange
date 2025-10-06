@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { Message } from "../models/message.model";
-import { sendMessage, getChats } from "../services/chat.service";
+import { sendMessage } from "../services/chat.service";
 
 export const createMessage = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -24,12 +24,4 @@ export const createMessage = async (req: Request, res: Response, next: NextFunct
     }
 }
 
-export const getChatHistory = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-        const user = (req as any).user;
-        const history = await getChats(user.userId);
-        return res.status(200).json({ message: "Chat history fetched", history });
-    } catch (error) {
-        next(error);
-    }
-}
+// history handlers moved to controllers/history.controller.ts
