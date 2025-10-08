@@ -1,0 +1,121 @@
+GET http://localhost:3000/ping
+
+### Test register route for PersonA
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "PersonA",
+    "password": "testA"
+
+}
+
+
+### Test register route for PersonB
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "PersonB",
+    "password": "testB"
+
+}
+
+### Test register route for PersonC
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "PersonC",
+    "password": "testC"
+}
+
+### Test login route
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "PersonA",
+    "password": "testA"
+}
+
+### Test send message 1
+POST http://localhost:3000/api/chat/send
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGUzNmE1OTVmM2FiMzI3MTdmN2I0ZGYiLCJ1c2VybmFtZSI6IlBlcnNvbkEiLCJpYXQiOjE3NTk3MzQzODksImV4cCI6MTc1OTczNzk4OX0.Fdt1_5ZJ7Ouy9DcxWu-dM-xS9i2pSyP68DK-1Ytcl6s
+
+{
+    "recipientIdentifier": "PersonB",
+    "content": "Hello, how are you 1?"
+}
+
+### Test send message 2
+POST http://localhost:3000/api/chat/send
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGUzNmE1OTVmM2FiMzI3MTdmN2I0ZGYiLCJ1c2VybmFtZSI6IlBlcnNvbkEiLCJpYXQiOjE3NTk3MzQzODksImV4cCI6MTc1OTczNzk4OX0.Fdt1_5ZJ7Ouy9DcxWu-dM-xS9i2pSyP68DK-1Ytcl6s
+
+{
+    "recipientIdentifier": "PersonB",
+    "content": "Hello, how are you 2?"
+}
+
+### Test send message 3
+POST http://localhost:3000/api/chat/send
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGUzNmE1OTVmM2FiMzI3MTdmN2I0ZGYiLCJ1c2VybmFtZSI6IlBlcnNvbkEiLCJpYXQiOjE3NTk3NjI0MjAsImV4cCI6MTc1OTc2NjAyMH0.1MNRDt57vt33IBO3uJHDYIjlT5tKM5rSRSe66wByQeY
+
+{
+    "recipientIdentifier": "PersonB",
+    "content": "Hello, how are you 3?"
+}
+
+### Test send message 4
+POST http://localhost:3000/api/chat/send
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGUzNmE1OTVmM2FiMzI3MTdmN2I0ZGYiLCJ1c2VybmFtZSI6IlBlcnNvbkEiLCJpYXQiOjE3NTk5MDY5MTUsImV4cCI6MTc1OTkxMDUxNX0.vDO2YOsz_I2yp2Muyu0CihJyrJn-2f-I7pWaj_kei_4
+
+{
+    "recipientIdentifier": "PersonC",
+    "content": "Hi, 1?"
+}
+
+### Login route for PersonC
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "PersonC",
+    "password": "testC"
+}
+
+### Test send message 5 (PersonC to PersonA)
+POST http://localhost:3000/api/chat/send
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGU2MGMwNWEyYTBmODIxNDBlNjY0YTQiLCJ1c2VybmFtZSI6IlBlcnNvbkMiLCJpYXQiOjE3NTk5MDY5MzYsImV4cCI6MTc1OTkxMDUzNn0.8H05YEHp9hhINCkv61KppqtozrAQSNaT1uy6mFeE000
+
+{
+    "recipientIdentifier": "PersonA",
+    "content": "Hi, 2?"
+}
+
+
+
+### Test get chat history cached route
+GET http://localhost:3000/api/history/cached
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGUzNmE1OTVmM2FiMzI3MTdmN2I0ZGYiLCJ1c2VybmFtZSI6IlBlcnNvbkEiLCJpYXQiOjE3NTk5MDY5MTUsImV4cCI6MTc1OTkxMDUxNX0.vDO2YOsz_I2yp2Muyu0CihJyrJn-2f-I7pWaj_kei_4
+
+### Test get chat history route
+GET http://localhost:3000/api/history
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGUzNmE1OTVmM2FiMzI3MTdmN2I0ZGYiLCJ1c2VybmFtZSI6IlBlcnNvbkEiLCJpYXQiOjE3NTk5MDY5MTUsImV4cCI6MTc1OTkxMDUxNX0.vDO2YOsz_I2yp2Muyu0CihJyrJn-2f-I7pWaj_kei_4
+
+### Test send message with XSS
+POST http://localhost:3000/api/chat/send
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGUzNmE1OTVmM2FiMzI3MTdmN2I0ZGYiLCJ1c2VybmFtZSI6IlBlcnNvbkEiLCJpYXQiOjE3NTk3NjI0MjAsImV4cCI6MTc1OTc2NjAyMH0.1MNRDt57vt33IBO3uJHDYIjlT5tKM5rSRSe66wByQeY
+Content-Type: application/json
+
+{
+  "recipientIdentifier": "PersonB",
+  "content": "<script>alert('XSS')</script>Hello"
+}

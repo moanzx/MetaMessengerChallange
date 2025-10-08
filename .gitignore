@@ -12,4 +12,4 @@ dist/
 Thumbs.db
 
 # Rest client
-.rest
+# .rest
